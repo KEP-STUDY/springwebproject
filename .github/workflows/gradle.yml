@@ -5,14 +5,14 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, review/java, review/kotlin ]
   pull_request:
     branches: [ master, review/java, review/kotlin, review/spring ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
