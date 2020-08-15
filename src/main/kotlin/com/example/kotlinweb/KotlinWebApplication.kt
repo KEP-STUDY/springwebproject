@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinwebApplication
+class KotlinWebApplication
 
 fun main(args: Array<String>) {
-    runApplication<KotlinwebApplication>(*args)
+    runApplication<KotlinWebApplication>(*args)
 }
