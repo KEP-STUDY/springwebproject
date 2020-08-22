@@ -12,4 +12,7 @@ class BoardService(
         println("Board 생성 :$board")
         return true
     }
+
+    fun getBoard(): List<Board> = boardList
+
 }
