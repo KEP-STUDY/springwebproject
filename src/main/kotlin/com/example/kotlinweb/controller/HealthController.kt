@@ -13,5 +13,5 @@ class HealthController{
     @get:GetMapping(value = ["/health_check.html"])
     val ratingStatus: ResponseEntity<String>
         get() = ResponseEntity("Health", HttpStatus.OK)
-
+    
 }
