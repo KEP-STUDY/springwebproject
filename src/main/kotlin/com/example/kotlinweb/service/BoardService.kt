@@ -16,5 +16,11 @@ class BoardService(
 
     fun delete() = boardList.clear().also { println("clear Board : $boardList") }
 
-
+    fun updateItem(board: Board) = boardList.forEach {
+        if (it.id == board.id) {
+            boardList.remove(it)
+            boardList.add(board)
+            return@forEach
+        }
+    }
 }

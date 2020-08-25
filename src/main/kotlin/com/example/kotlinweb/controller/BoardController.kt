@@ -16,5 +16,6 @@ class BoardController(private val boardService: BoardService) {
     @DeleteMapping("/boardClear")
     fun deleteBoardList() = boardService.delete()
 
-
+    @PutMapping("/boardUpdate")
+    fun updateBoard(@RequestBody body: Board) = boardService.updateItem(body)
 }
