@@ -14,18 +14,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/board")
 class BoardController(
-        val boardService: BoardService,
-        val userService: UserService
+        val boardService: BoardService
 ) {
 
     @PostMapping
     fun createBoard(@RequestBody boardRequest: BoardRequest, @RequestParam name:String):String {
-        val userByName = userService.getUserByName(name)
-        val board = Board(
-                title = boardRequest.title,
-                content = boardRequest.content,
-        user = userByName)
-        boardService.createBoard(board)
+        boardService.createBoard(boardRequest, name)
         return "성고옹!"
     }
 

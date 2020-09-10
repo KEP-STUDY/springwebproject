@@ -18,7 +18,7 @@ class User (
     val id:Long? = null,
 
     @Column(name = "name")
-    val name:String,
+    var name:String,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     val boards: MutableList<Board> = mutableListOf()
