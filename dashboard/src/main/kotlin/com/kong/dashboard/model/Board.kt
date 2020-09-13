@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
-class Board (
+data class Board (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id:Long? = null,
