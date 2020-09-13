@@ -1,7 +1,6 @@
 package com.example.javaweb.controller;
 
 import com.example.javaweb.model.Board;
-import com.example.javaweb.response.BoardCreateResponse;
 import com.example.javaweb.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +19,16 @@ public class BoardsController {
     }
 
     @PostMapping("/board")
-    public ResponseEntity<BoardCreateResponse> create(@RequestBody HashMap<String, Object> map) {
+    public ResponseEntity<Board> create(@RequestBody HashMap<String, Object> map) {
         return new ResponseEntity<>(boardService.insert(map), HttpStatus.CREATED);
     }
 
     @GetMapping("/board/{id}")
-    public ResponseEntity<Board> find(@PathVariable int id) {
+    public ResponseEntity<Board> find(@PathVariable long id) {
         Board board = boardService.find(id);
         if (board == null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NOT_FOUND, "board not found"
             );
         }
 
@@ -41,7 +40,7 @@ public class BoardsController {
         Board board = boardService.update(id, map);
         if (board == null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NOT_FOUND, "board not found"
             );
         }
 
@@ -52,7 +51,7 @@ public class BoardsController {
     public ResponseEntity<Object> delete(@PathVariable int id) {
         if (!boardService.delete(id)) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NOT_FOUND, "board not found"
             );
         }
 

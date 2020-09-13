@@ -6,6 +6,7 @@ import com.example.javaweb.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -16,8 +17,33 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User create(HashMap<String, Object> map) {
-        User user = new User(null, (String) map.get("name"));
+    public User insert(HashMap<String, Object> map) {
+        User user = new User(map);
         return userRepository.save(user);
+    }
+
+    public User find(long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public boolean delete(long id) {
+        if (!userRepository.existsById(id)) {
+            return false;
+        }
+
+        userRepository.deleteById(id);
+        return true;
+    }
+
+    public User update(long id, HashMap<String, Object> map) {
+        final User updateUser = new User(map);
+        final Optional<User> savedUser = userRepository.findById(id);
+        if (savedUser.isEmpty()) {
+            return null;
+        }
+
+        savedUser.get().setName(updateUser.getName());
+
+        return userRepository.save(savedUser.get());
     }
 }

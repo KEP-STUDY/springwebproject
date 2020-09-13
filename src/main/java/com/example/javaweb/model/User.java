@@ -1,40 +1,47 @@
 package com.example.javaweb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id = null;
+    private String name = null;
 
-    private String name;
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
     }
 
-    public User(Integer id, String name) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
     public User() {}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public Integer getId() {
-        return id;
+    public User(HashMap<String, Object> map) {
+        if (map.get("id") != null) {
+            this.id = (Long) map.get("id");
+        }
+        if (map.get("name") != null) {
+            this.name = (String) map.get("name");
+        }
     }
 }

@@ -1,70 +1,55 @@
 package com.example.javaweb.model;
 
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashMap;
 
+@Entity
 public class Board {
-    public int getId() {
+
+    private Long id = null;
+    private String title = null;
+    private String body = null;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
         return id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getTitle() {
         return title;
     }
-
     public String getBody() {
         return body;
     }
-
-    private int id;
-    private String title;
-    private String body;
-
-    public static class Builder {
-        private int id = -1;
-        private String title = null;
-        private String body = null;
-
-        public Builder(Board board) {
-            id = board.id;
-            title = board.title;
-            body = board.body;
-        }
-
-        public Builder id(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder title(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder body(String body) {
-            this.body = body;
-            return this;
-        }
-
-        public Builder() {}
-
-        public Builder(HashMap<String, Object> map) {
-            if (map.get("title") instanceof String) {
-                this.title = (String) map.get("title");
-            }
-
-            if (map.get("body") instanceof String) {
-                this.body = (String) map.get("body");
-            }
-        }
-
-        public Board build() {
-            return new Board(this);
-        }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    private Board(Builder builder) {
-        id = builder.id;
-        title = builder.title;
-        body = builder.body;
+    public Board() {}
+
+    public Board(Long id, String title, String body) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+    }
+
+    public Board(HashMap<String, Object> map) {
+        if (map.get("id") != null) {
+            this.id = (Long) map.get("id");
+        }
+        if (map.get("title") != null) {
+            this.title = (String) map.get("title");
+        }
+        if (map.get("body") !=  null) {
+            this.body = (String) map.get("body");
+        }
     }
 }

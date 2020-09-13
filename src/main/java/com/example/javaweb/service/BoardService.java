@@ -2,10 +2,10 @@ package com.example.javaweb.service;
 
 import com.example.javaweb.model.Board;
 import com.example.javaweb.repository.BoardRepository;
-import com.example.javaweb.response.BoardCreateResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -15,22 +15,34 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public Board find(int id) {
-        return boardRepository.find(id);
+    public Board find(long id) {
+        return boardRepository.findById(id).orElse(null);
     }
 
-    public BoardCreateResponse insert(HashMap<String, Object> map) {
-        final Board board = new Board.Builder(map).build();
-        int id = boardRepository.insert(board);
-        return new BoardCreateResponse(id);
+    public Board insert(HashMap<String, Object> map) {
+        final Board board = new Board(map);
+        return boardRepository.save(board);
     }
 
-    public boolean delete(int id) {
-        return boardRepository.delete(id);
+    public boolean delete(long id) {
+        if (!boardRepository.existsById(id)) {
+            return false;
+        }
+
+        boardRepository.deleteById(id);
+        return true;
     }
 
-    public Board update(int id, HashMap<String, Object> map) {
-        final Board board = new Board.Builder(map).build();
-        return boardRepository.update(id, board);
+    public Board update(long id, HashMap<String, Object> map) {
+        final Board updateBoard = new Board(map);
+        final Optional<Board> savedBoard = boardRepository.findById(id);
+        if (savedBoard.isEmpty()) {
+            return null;
+        }
+
+        savedBoard.get().setTitle(updateBoard.getTitle());
+        savedBoard.get().setBody(updateBoard.getBody());
+
+        return boardRepository.save(savedBoard.get());
     }
 }

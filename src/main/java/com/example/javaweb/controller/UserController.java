@@ -1,13 +1,11 @@
 package com.example.javaweb.controller;
 
 import com.example.javaweb.model.User;
-import com.example.javaweb.service.BoardService;
 import com.example.javaweb.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 
@@ -21,8 +19,42 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<Object>  create(@RequestBody HashMap<String, Object> map) {
-        User user = userService.create(map);
+    public ResponseEntity<User> create(@RequestBody HashMap<String, Object> map) {
+        return new ResponseEntity<>(userService.insert(map), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> find(@PathVariable long id) {
+        User user = userService.find(id);
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user not found"
+            );
+        }
+
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<User> update(@PathVariable int id, @RequestBody HashMap<String, Object> map) {
+        User user = userService.update(id, map);
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user not found"
+            );
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Object> delete(@PathVariable int id) {
+        if (!userService.delete(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user not found"
+            );
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
