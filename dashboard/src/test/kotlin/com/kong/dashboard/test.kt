@@ -1,6 +1,6 @@
 package com.kong.dashboard
 
-import com.kong.dashboard.model.User
+import com.kong.dashboard.entity.User
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import javax.transaction.Transactional

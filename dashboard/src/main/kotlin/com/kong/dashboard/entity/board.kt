@@ -1,10 +1,11 @@
-package com.kong.dashboard.model
+package com.kong.dashboard.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
-data class Board (
+@Table(name = "board")
+data class BoardEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id:Long? = null,
@@ -16,5 +17,5 @@ data class Board (
         @ManyToOne
         @JoinColumn(name = "user_id")
         @JsonIgnore
-        val user: User? = null
+        val user: UserEntity? = null
 )

@@ -1,10 +1,10 @@
-package com.kong.dashboard.model
+package com.kong.dashboard.entity
 
 import javax.persistence.*
 
 @Entity
 @Table(name = "user")
-data class User (
+data class UserEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id:Long? = null,
@@ -13,5 +13,5 @@ data class User (
         val name:String,
 
         @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
-        val boards: MutableList<Board> = mutableListOf()
+        val boards: MutableList<BoardEntity> = mutableListOf()
 )
