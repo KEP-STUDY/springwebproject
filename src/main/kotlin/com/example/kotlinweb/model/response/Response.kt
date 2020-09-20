@@ -1,4 +1,4 @@
-package com.example.kotlinweb.model
+package com.example.kotlinweb.model.response
 
 import org.springframework.http.HttpStatus
 

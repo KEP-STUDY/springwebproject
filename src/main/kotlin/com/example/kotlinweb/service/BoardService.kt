@@ -1,33 +1,43 @@
 package com.example.kotlinweb.service
 
 import com.example.kotlinweb.model.Board
+import com.example.kotlinweb.model.UserContext
+import com.example.kotlinweb.model.request.BoardRequest
+import com.example.kotlinweb.repository.BoardRepository
+import com.example.kotlinweb.repository.UserRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.lang.RuntimeException
+import javax.transaction.Transactional
 
 @Service
 class BoardService(
-        private val boardList:MutableList<Board>
+        private val boardRepository: BoardRepository
 ){
 
-    fun createBoard(board:Board):Board{
-        boardList.add(board)
-        return board
+    fun createBoard(boardRequest:BoardRequest):Board{
+        val board = Board(null, boardRequest.title, boardRequest.content, UserContext.getUser())
+        return boardRepository.save(board)
     }
 
-    fun findBoard(id:Int):Board{
-        return boardList[id-1]
+    fun findBoard(id:Long):Board{
+        return boardRepository.findByIdOrNull(id) ?: throw RuntimeException("not found board")
     }
     fun findAllBoard():List<Board>{
-        return boardList
+        return boardRepository.findAll()
     }
 
-    fun deleteBoard(id:Int):Boolean{
-        val board = boardList[id-1]
-        return boardList.remove(board)
+    fun deleteBoard(id:Long):Boolean{
+        boardRepository.deleteById(id)
+        return true
     }
 
-    fun updateBoard(id:Int, board: Board):Board{
-        boardList[id-1] = board;
-        return board;
+    @Transactional
+    fun updateBoard(id:Long, boardRequest: BoardRequest):Board{
+        val board = boardRepository.findByIdOrNull(id) ?: throw RuntimeException("not found board")
+        board.title = boardRequest.title
+        board.content = boardRequest.content
+        return board
     }
 
 }

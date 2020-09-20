@@ -1,6 +1,6 @@
 package com.example.kotlinweb.exception
 
-import com.example.kotlinweb.model.Response
+import com.example.kotlinweb.model.response.Response
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -26,6 +26,7 @@ class ControllerAdvice(){
         }
     }
     private fun makeResponse(message:String?, status:HttpStatus, data:Any? = null):ResponseEntity<Response<*>>{
-        return ResponseEntity(Response(code = status,message = message?.let { message } ?: "", data = data), status)
+        return ResponseEntity(Response(code = status, message = message?.let { message }
+                ?: "", data = data), status)
     }
 }
