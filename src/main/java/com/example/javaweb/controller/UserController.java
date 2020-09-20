@@ -18,12 +18,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     public ResponseEntity<User> create(@RequestBody HashMap<String, Object> map) {
         return new ResponseEntity<>(userService.insert(map), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> find(@PathVariable long id) {
         User user = userService.find(id);
         if (user == null) {
@@ -35,7 +35,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<User> update(@PathVariable int id, @RequestBody HashMap<String, Object> map) {
         User user = userService.update(id, map);
         if (user == null) {
@@ -47,7 +47,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Object> delete(@PathVariable int id) {
         if (!userService.delete(id)) {
             throw new ResponseStatusException(

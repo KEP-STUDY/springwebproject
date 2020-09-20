@@ -1,18 +1,38 @@
 package com.example.javaweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+import java.io.Serializable;
 import java.util.HashMap;
 
 @Entity
-public class Board {
-
-    private Long id = null;
-    private String title = null;
-    private String body = null;
+@Table(name = "boards")
+public class Board implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
+    private Long id = null;
+    @JsonProperty
+    private String title = null;
+    @JsonProperty
+    private String body = null;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -35,6 +55,13 @@ public class Board {
 
     public Board() {}
 
+    public Board(Long id, String title, String body, User user) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
     public Board(Long id, String title, String body) {
         this.id = id;
         this.title = title;
@@ -50,6 +77,9 @@ public class Board {
         }
         if (map.get("body") !=  null) {
             this.body = (String) map.get("body");
+        }
+        if (map.get("user") != null) {
+            this.user = (User) map.get("user");
         }
     }
 }

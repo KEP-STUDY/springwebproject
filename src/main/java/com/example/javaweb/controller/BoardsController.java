@@ -18,12 +18,12 @@ public class BoardsController {
         this.boardService = boardService;
     }
 
-    @PostMapping("/board")
+    @PostMapping("/boards")
     public ResponseEntity<Board> create(@RequestBody HashMap<String, Object> map) {
         return new ResponseEntity<>(boardService.insert(map), HttpStatus.CREATED);
     }
 
-    @GetMapping("/board/{id}")
+    @GetMapping("/boards/{id}")
     public ResponseEntity<Board> find(@PathVariable long id) {
         Board board = boardService.find(id);
         if (board == null) {
@@ -35,7 +35,7 @@ public class BoardsController {
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
-    @PutMapping("/board/{id}")
+    @PutMapping("/boards/{id}")
     public ResponseEntity<Board> update(@PathVariable int id, @RequestBody HashMap<String, Object> map) {
         Board board = boardService.update(id, map);
         if (board == null) {
@@ -47,7 +47,7 @@ public class BoardsController {
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
-    @DeleteMapping("/board/{id}")
+    @DeleteMapping("/boards/{id}")
     public ResponseEntity<Object> delete(@PathVariable int id) {
         if (!boardService.delete(id)) {
             throw new ResponseStatusException(
