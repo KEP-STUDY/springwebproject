@@ -4,15 +4,16 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "user")
-class User (
+data class User (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id:Long? = null,
 
         @Column(name = "name")
-        val name:String,
+        var name:String,
 
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
-        val boards: MutableList<Board> = mutableListOf()
-)
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user", fetch=FetchType.LAZY )
+        var boards: MutableList<Board> = mutableListOf()
+) {
+        constructor():this(null,"", mutableListOf<Board>())
+}

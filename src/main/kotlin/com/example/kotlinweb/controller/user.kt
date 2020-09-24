@@ -5,6 +5,7 @@ import com.example.kotlinweb.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
@@ -18,4 +19,10 @@ class UserController(private val userService: UserService){
     fun create():ResponseEntity<User>{
       return ResponseEntity.ok(userService.save())
     }
+
+    @PatchMapping("/user")
+    fun update():ResponseEntity<User>{
+        return ResponseEntity.ok(userService.update())
+    }
+
 }
