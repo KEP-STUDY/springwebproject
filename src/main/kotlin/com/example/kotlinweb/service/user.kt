@@ -2,6 +2,7 @@ package com.example.kotlinweb.service
 
 import com.example.kotlinweb.entity.Board
 import com.example.kotlinweb.entity.User
+import com.example.kotlinweb.model.CreateUserRequest
 import com.example.kotlinweb.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -12,8 +13,8 @@ class UserService(val userRepository: UserRepository){
         return userRepository.findAll()
     }
 
-    fun save(): User {
-        return userRepository.save(User(null,"hi", mutableListOf<Board>()))
+    fun save(createUserRequest: CreateUserRequest): User {
+        return userRepository.save(User(null,createUserRequest.name, mutableListOf<Board>()))
     }
 
     fun getUserById(id:Long):User{
