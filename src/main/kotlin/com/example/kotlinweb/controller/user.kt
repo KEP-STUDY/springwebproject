@@ -1,6 +1,6 @@
 package com.example.kotlinweb.controller
 
-import com.example.kotlinweb.model.User
+import com.example.kotlinweb.entity.User
 import com.example.kotlinweb.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller

@@ -1,4 +1,4 @@
-package com.example.kotlinweb.model
+package com.example.kotlinweb.entity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 

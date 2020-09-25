@@ -1,4 +1,4 @@
-package com.example.kotlinweb.model
+package com.example.kotlinweb.entity
 
 import javax.persistence.*
 
