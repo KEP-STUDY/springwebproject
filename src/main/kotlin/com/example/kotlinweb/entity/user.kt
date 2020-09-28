@@ -12,7 +12,4 @@ data class User (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null
-
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user", fetch = FetchType.LAZY)
-        var boards: MutableList<Board> = mutableListOf()
 }

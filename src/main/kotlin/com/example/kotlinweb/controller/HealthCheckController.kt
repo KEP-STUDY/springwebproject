@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-class HealthController{
+class HealthCheckController{
 
-    @get:ResponseBody
-    @get:GetMapping(value = ["/health_check.html"])
-    val ratingStatus: ResponseEntity<String>
-        get() = ResponseEntity("Health", HttpStatus.OK)
-
+    @GetMapping(value = ["/health_check.html"])
+    fun getStatus():ResponseEntity<String>{
+        return ResponseEntity("Health", HttpStatus.OK)
+    }
 }
