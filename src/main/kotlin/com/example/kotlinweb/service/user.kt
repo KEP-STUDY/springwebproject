@@ -1,6 +1,5 @@
 package com.example.kotlinweb.service
 
-import com.example.kotlinweb.entity.Board
 import com.example.kotlinweb.entity.User
 import com.example.kotlinweb.model.CreateUserRequest
 import com.example.kotlinweb.repository.UserRepository
@@ -14,7 +13,7 @@ class UserService(val userRepository: UserRepository){
     }
 
     fun save(createUserRequest: CreateUserRequest): User {
-        return userRepository.save(User(null,createUserRequest.name, mutableListOf<Board>()))
+        return userRepository.save(User(name = createUserRequest.name))
     }
 
     fun getUserById(id:Long):User{
@@ -22,7 +21,7 @@ class UserService(val userRepository: UserRepository){
     }
 
     fun update(): User {
-        val targetUser:User = getUserById(1)
+        val targetUser:User = getUserById(13)
         targetUser.name="Change"
         return userRepository.save(targetUser)
     }

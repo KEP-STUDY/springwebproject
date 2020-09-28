@@ -4,16 +4,15 @@ import javax.persistence.*
 
 
 @Entity
+@Table
 data class User (
+        @Column
+        var name: String
+): Auditable<String>() {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id:Long? = null,
+        var id: Long? = null
 
-        @Column(name = "name")
-        var name:String,
-
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user", fetch=FetchType.LAZY )
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user", fetch = FetchType.LAZY)
         var boards: MutableList<Board> = mutableListOf()
-) {
-        constructor():this(null,"", mutableListOf<Board>())
 }
