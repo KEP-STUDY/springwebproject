@@ -3,7 +3,6 @@ package com.example.kotlinweb.entity
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
