@@ -2,6 +2,7 @@ package com.example.kotlinweb.service
 
 import com.example.kotlinweb.entity.User
 import com.example.kotlinweb.model.CreateUserRequest
+import com.example.kotlinweb.model.UpdateUserRequest
 import com.example.kotlinweb.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -20,9 +21,9 @@ class UserService(val userRepository: UserRepository){
         return userRepository.findByIdOrNull(id) ?: throw Exception("There is no user with that ID.")
     }
 
-    fun update(): User {
-        val targetUser:User = getUserById(13)
-        targetUser.name="Change"
+    fun update(id:Long,updateUserRequest: UpdateUserRequest): User {
+        val targetUser:User = getUserById(id)
+        targetUser.name=updateUserRequest.name?:targetUser.name
         return userRepository.save(targetUser)
     }
 }
