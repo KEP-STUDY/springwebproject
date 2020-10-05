@@ -2,24 +2,12 @@ package com.example.kotlinweb.board.repository
 
 import com.example.kotlinweb.board.model.AbstractDatabase
 import com.example.kotlinweb.board.model.Post
+import org.springframework.data.domain.Example
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import javax.persistence.Id
 
 @Repository
-class PostCrudRepository : PostRepository<Post> {
+interface PostCrudRepository : JpaRepository<Post, Long> {
 
-    override fun <Post> save(post: Post) {
-        AbstractDatabase.create(post);
-    }
-
-    override fun find(): MutableList<Any> {
-        return AbstractDatabase.read()
-    }
-
-    override fun findById(postId: Long): Post {
-        return find().map { any -> any as Post }.first { post -> post.id == postId }
-    }
-
-    override fun <Post> delete(post: Post) {
-        return AbstractDatabase.delete(post)
-    }
 }

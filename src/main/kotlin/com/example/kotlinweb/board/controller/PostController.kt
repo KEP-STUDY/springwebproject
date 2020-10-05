@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 class BoardController(private val boardService: BoardService) {
 
     @GetMapping(value = ["/board"])
-    fun findAllPosts(): ResponseEntity<Any> {;
+    fun findAllPosts(): ResponseEntity<Any> {
         return ResponseEntity(boardService.findPosts(), HttpStatus.OK);
     }
 
