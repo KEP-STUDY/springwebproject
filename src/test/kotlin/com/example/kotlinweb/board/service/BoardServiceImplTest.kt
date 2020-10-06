@@ -1,17 +1,12 @@
 package com.example.kotlinweb.board.service
 
-import com.example.kotlinweb.board.model.AbstractDatabase
 import com.example.kotlinweb.board.model.Post
 import com.example.kotlinweb.board.repository.PostCrudRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
-import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @SpringBootTest
 internal class BoardServiceImplTest(
@@ -23,7 +18,10 @@ internal class BoardServiceImplTest(
         val post: Post = Post(1L, "Test Title", "KDH", "memo")
         val boardService: BoardService = BoardServiceImpl(repository)
         boardService.savePost(post)
-        verify(AbstractDatabase, times(1)).create(Any())
+        val savedPost: Post? = boardService.findPostbyId(1L)
+        if (savedPost != null) {
+            Assertions.assertEquals(post.title, savedPost.title)
+        }
     }
 
     @Test
@@ -33,7 +31,8 @@ internal class BoardServiceImplTest(
         val boardService: BoardService = BoardServiceImpl(repository)
         boardService.savePost(post1)
         boardService.savePost(post2)
-        var posts: MutableList<Any> = AbstractDatabase.read()
+
+        val posts: MutableList<Post> = boardService.findPosts()
         val savedPost1: Post = posts[0] as Post
         val savedPost2: Post = posts[1] as Post
         assertAll(

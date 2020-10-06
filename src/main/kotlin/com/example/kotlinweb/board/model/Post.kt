@@ -1,24 +1,28 @@
 package com.example.kotlinweb.board.model
 
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 import javax.persistence.*
-
 
 @Entity
 class Post(
 
     @Id
-    @GeneratedValue(starategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     @Column
-    val title: String,
+    var title: String,
     @Column
     val writer: String,
     @Column
-    val text: String
+    var text: String
 ) {
     @Column
-    val createDate: LocalDateTime = LocalDateTime.now()
+    @CreationTimestamp
+    lateinit var createDate: LocalDateTime
+
     @Column
-    var updateDate: LocalDateTime = LocalDateTime.now()
+    @UpdateTimestamp
+    lateinit var updateDate: LocalDateTime
 }
