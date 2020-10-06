@@ -14,7 +14,7 @@ class BoardServiceImpl(private val postCrudRepository: PostCrudRepository) : Boa
         postCrudRepository.save(post)
     }
 
-    override fun findPostbyId(id: Long): Post? {
+    override fun findPostById(id: Long): Post? {
         return postCrudRepository.findByIdOrNull(id)
     }
 

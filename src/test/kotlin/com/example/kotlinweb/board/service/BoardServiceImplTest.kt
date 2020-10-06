@@ -2,6 +2,7 @@ package com.example.kotlinweb.board.service
 
 import com.example.kotlinweb.board.model.Post
 import com.example.kotlinweb.board.repository.PostCrudRepository
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -20,9 +21,10 @@ internal class BoardServiceImplTest(
         val post: Post = Post(1L, "Test Title", "KDH", "memo")
         val boardService: BoardService = BoardServiceImpl(repository)
         boardService.savePost(post)
-        val savedPost: Post? = boardService.findPostbyId(1L)
-        if (savedPost != null) {
+        val savedPost: Post? = boardService.findPostById(1L)
+        savedPost.let {
             Assertions.assertEquals(post.title, savedPost.title)
+            assertThat(post.title).isEqualTo(savedPost.title)
         }
     }
 
@@ -38,10 +40,16 @@ internal class BoardServiceImplTest(
         val posts: MutableList<Post> = boardService.findPosts()
         val savedPost1: Post = posts[0] as Post
         val savedPost2: Post = posts[1] as Post
+        //assertion
         assertAll(
             "posts",
             { Assertions.assertEquals(post1.title, savedPost1.title) },
             { Assertions.assertEquals(post2.writer, savedPost2.writer) }
+        )
+        //assertJ
+        assertAll(
+            { assertThat(post1.title).isEqualTo(savedPost1.title) },
+            { assertThat(post2.writer).isEqualTo(savedPost2.writer) }
         )
     }
 
@@ -50,6 +58,10 @@ internal class BoardServiceImplTest(
     fun increaseHitCount() {
         val post1: Post = Post(1L, "Test Title", "KDH", "memo1")
         post1.increaseHitCount()
+        //assertion
         Assertions.assertEquals(post1.hitCount, 1)
+        //assertJ
+        assertThat(post1.hitCount).isEqualTo(1)
+
     }
 }

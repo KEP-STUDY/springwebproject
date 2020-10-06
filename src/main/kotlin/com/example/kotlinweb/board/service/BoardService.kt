@@ -4,7 +4,7 @@ import com.example.kotlinweb.board.model.Post
 
 interface BoardService {
     fun savePost(post: Post)
-    fun findPostbyId(id: Long): Post?
+    fun findPostById(id: Long): Post?
     fun findPosts(): MutableList<Post>
     fun updatePost(post: Post)
     fun deletePost(post: Post)
