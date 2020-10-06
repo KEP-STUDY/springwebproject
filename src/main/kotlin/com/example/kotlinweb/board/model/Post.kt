@@ -17,7 +17,11 @@ class Post(
     val writer: String,
     @Column
     var text: String
+
 ) {
+    @Column
+    var hitCount: Int = 0
+
     @Column
     @CreationTimestamp
     lateinit var createDate: LocalDateTime
@@ -25,4 +29,6 @@ class Post(
     @Column
     @UpdateTimestamp
     lateinit var updateDate: LocalDateTime
+
+    fun increaseHitCount() = hitCount++
 }

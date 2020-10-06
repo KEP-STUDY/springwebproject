@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import javax.transaction.Transactional
 
 @SpringBootTest
 internal class BoardServiceImplTest(
@@ -14,6 +15,7 @@ internal class BoardServiceImplTest(
 ) {
 
     @Test
+    @Transactional
     fun savePostTest() {
         val post: Post = Post(1L, "Test Title", "KDH", "memo")
         val boardService: BoardService = BoardServiceImpl(repository)
@@ -25,6 +27,7 @@ internal class BoardServiceImplTest(
     }
 
     @Test
+    @Transactional
     fun readPostsTest() {
         val post1: Post = Post(1L, "Test Title", "KDH", "memo1")
         val post2: Post = Post(2L, "Test Title2", "KDH2", "memo2")
@@ -40,5 +43,13 @@ internal class BoardServiceImplTest(
             { Assertions.assertEquals(post1.title, savedPost1.title) },
             { Assertions.assertEquals(post2.writer, savedPost2.writer) }
         )
+    }
+
+    @Test
+    @Transactional
+    fun increaseHitCount() {
+        val post1: Post = Post(1L, "Test Title", "KDH", "memo1")
+        post1.increaseHitCount()
+        Assertions.assertEquals(post1.hitCount, 1)
     }
 }
