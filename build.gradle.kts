@@ -38,7 +38,9 @@ allOpen {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeTags("fast")
+    }
 }
 
 tasks.withType<KotlinCompile> {
@@ -47,3 +49,4 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "11"
     }
 }
+

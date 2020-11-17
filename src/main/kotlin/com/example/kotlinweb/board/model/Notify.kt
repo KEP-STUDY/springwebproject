@@ -1,28 +1,30 @@
 package com.example.kotlinweb.board.model
 
-import com.example.kotlinweb.board.event.PostEntityListener
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 import javax.persistence.*
 
+
 @Entity
-@EntityListeners(PostEntityListener::class)
-class Post(
+class Notify(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    val id: Long?,
+
     @Column
-    var title: String,
+    var postId: String,
+
     @Column
-    val writer: String,
-    @Column
-    var text: String
+    val message: String
 
 ) {
-    @Column
-    var hitCount: Int = 0
+    companion object {
+        fun of(postId: String, message: String): Notify {
+            return Notify(null, postId, message)
+        }
+    }
 
     @Column
     @CreationTimestamp
@@ -32,5 +34,4 @@ class Post(
     @UpdateTimestamp
     lateinit var updateDate: LocalDateTime
 
-    fun increaseHitCount() = hitCount++
 }
