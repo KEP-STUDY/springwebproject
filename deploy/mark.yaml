@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mark-app
-  namespace: i-kakao-com
+  namespace: mark-space
   labels:
     app: mark-app
 spec:
