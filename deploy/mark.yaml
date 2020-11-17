@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mark-app
-          image: idock.daumkakao.io/mark-d2hub/mark-repository
+          image: idock.daumkakao.io/mark-d2hub/mark-repository:rule0
           imagePullPolicy: Always
           resources:
             limits:
