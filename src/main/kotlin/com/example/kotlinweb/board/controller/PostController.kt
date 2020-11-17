@@ -15,6 +15,7 @@ class BoardController(private val boardService: BoardService) {
 
     @PostMapping(value = ["/board"])
     fun savePost(@RequestBody post: Post): ResponseEntity<Any> {
+        println("hello")
         return ResponseEntity(boardService.savePost(post), HttpStatus.CREATED);
     }
 
