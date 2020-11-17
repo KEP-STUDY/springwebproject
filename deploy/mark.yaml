@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mark-app
-          image: idock.daumkakao.io/mark-d2hub/mark-repository:mark
+          image: idock.daumkakao.io/mark-d2hub/mark-repository:latest
           imagePullPolicy: Always
           resources:
             limits:
@@ -25,7 +25,7 @@ spec:
               memory: 1Gi
             requests:
               cpu: 1
-              memory: 768Mi
+              memory: 1Gi
           ports:
             - containerPort: 8080
           env:
