@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-class HealthController{
+class HealthController {
 
     @get:ResponseBody
     @get:GetMapping(value = ["/health_check.html"])

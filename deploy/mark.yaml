@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mark-app
+  namespace: mark-space
+  labels:
+    app: mark-app
+spec:
+  selector:
+    matchLabels:
+      app: mark-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mark-app
+    spec:
+      containers:
+        - name: mark-app
+          image: idock.daumkakao.io/mark-d2hub/mark-repository:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 1
+              memory: 300Mi
+            requests:
+              cpu: 1
+              memory: 1Gi
+          ports:
+            - containerPort: 8080
+          env:
+            - name: application_name
+              value: mark-app
+            - name: instance_name
+              value: "8080"
+          readinessProbe:
+            httpGet:
+              path: /health_check.html
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sleep","2"]
+      terminationGracePeriodSeconds: 60
